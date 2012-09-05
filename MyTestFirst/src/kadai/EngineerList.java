@@ -11,10 +11,13 @@ import java.util.List;
 
 public class EngineerList {
 
-	//リストを取得する
-	public List<String> getList() throws IOException {
+	List<String> engineerList = new ArrayList<String>();
 
-		List<String> engineerList = new ArrayList<String>();
+	/**
+	 * エンジニアリストを返す
+	 * @return エンジニアリスト
+	 */
+	public List<String> read() throws IOException {
 
 		try {
 
@@ -24,8 +27,7 @@ public class EngineerList {
 			BufferedReader bufferdReader = new BufferedReader(filereader);
 			String list;
 
-			while((list = bufferdReader.readLine())!=null){
-                //System.out.println(list);
+			while((list = bufferdReader.readLine()) != null){
                 engineerList.add(list);
             }
 
@@ -39,21 +41,26 @@ public class EngineerList {
 
 	}
 
-	//リストの数を返す
+	/**
+	 * エンジニアリストの人数を返す
+	 * @return エンジニアの人数
+	 * @throws IOException
+	 */
 	public int getListSize() throws IOException {
 
-		int listSize = this.getList().size();
+		int listSize = this.read().size();
 
 		return listSize;
 	}
 
-	//リストをアルファベット順にソートする
+	/**
+	 * エンジニアリストをソートしたリストを返す
+	 * @return アルファベット順でソート済みのリスト
+	 */
 	public List<String> getListSort() {
 
-		List<String> engineerList = new ArrayList<String>();
-
 		try {
-			engineerList = this.getList();
+			engineerList = this.read();
 			Collections.sort(engineerList);
 
 		} catch (IOException e) {
