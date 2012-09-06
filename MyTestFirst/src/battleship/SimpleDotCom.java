@@ -1,75 +1,57 @@
 package battleship;
 
+import java.util.ArrayList;
+
 public class SimpleDotCom {
 
 	//軍艦の位置を示す
-	private int[] locationCells;
-	private int numOfHits = 0;
+	private ArrayList<String> locationCells = new ArrayList<String>();
 
 	//コンストラクタ
 	public SimpleDotCom() {
 
 		boolean flg = true;
-		int[] setCells = new int[3];
+		int rnd = (int)(Math.random()*70/10);
+		String rndStr = null;
 
 		while(flg){
 
-			int rnd = (int)(Math.random()*70/10);
+				rndStr = String.valueOf(rnd);
+				this.locationCells.add(rndStr);
+				rnd++;
 
-			if(rnd<=4){
-				for(int i = 0;i <= 2;i++){
-					setCells[i] = rnd;
-					rnd++;
+				if(locationCells.size()==3) {
+					flg = false;
 				}
-
-				flg = false;
-			}
-
 		}
-
-		this.locationCells = setCells;
-
-//		for(int i : locationCells) {
-//			System.out.println(i);
-//		}
-
 	}
 
-	public int[] getLocationCells() {
+	public ArrayList<String> getLocationCells() {
 		return locationCells;
 	}
 
-	public void setLocationCells(int[] locationCells) {
-		this.locationCells = locationCells;
-	}
-
-	public int getNumOfHits() {
-		return numOfHits;
-	}
-
-	public void setNumOfHits(int numOfHits) {
-		this.numOfHits = numOfHits;
+	public void setLocationCells(ArrayList<String> setCells) {
+		this.locationCells = setCells;
 	}
 
 	public String checkYourself(String userGuess) {
 
-		int guess = Integer.parseInt(userGuess); //ユーザが入力した値を数値に変換
-		String result = "miss"; //初期値はミス推定ハズレを意味する
+		String result = null;
 
-		//locationCellsの中身すべてについて処理する
-		for(int cell : locationCells) {
+		result = "miss"; //初期値はミス推定ハズレを意味する
 
-			//System.out.println(cell);
-			if(guess==cell) {
+		//インデックスを指定しArrayListにユーザが推測したセル番号があるかどうか確かめる
+		int index = locationCells.indexOf(userGuess); //indexの値が0以上であればユーザの推測したセル番号がリストの中にあるということ
+
+		if(index >= 0){
+			locationCells.remove(index);
+
+			if(locationCells.isEmpty()) {
+				result = "kill";
+			} else {
 				result = "hit";
-				numOfHits++; //推測が一致した回数を表す値を1増やす
-
-					if(numOfHits==locationCells.length) { //正解が達したかどうか
-						result = "kill";
-					}
-
-				break;//ループを抜ける
 			}
+
 		}
 		return result;
 	}

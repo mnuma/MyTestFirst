@@ -1,22 +1,31 @@
 package battleship.test;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.Test;
 import battleship.SimpleDotCom;
 
 public class SimpleDotComTest {
 
+	ArrayList<String> result = new ArrayList<String>();
+
 	@Test
 	public void constractorTest() {
 		SimpleDotCom simpleDotCom = new SimpleDotCom();
-		int[] result = simpleDotCom.getLocationCells();
-		assertEquals(3, result.length);
+		ArrayList<String> list = simpleDotCom.getLocationCells();
+		assertEquals(3, list.size());
 	}
 
 	@Test
 	public void setUp() {
 
-		int[] locations = {2,3,4};
+		ArrayList<String> locations = new ArrayList<String>();
+		locations.add("1");
+		locations.add("2");
+		locations.add("3");
+
 		SimpleDotCom dot = new SimpleDotCom();
 
 		try {

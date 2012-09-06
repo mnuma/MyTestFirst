@@ -16,33 +16,31 @@ public class SimpleDotComGame {
 
 		SimpleDotCom dot1 = new SimpleDotCom();
 
-//		for(int i:dot1.getLocationCells()){
-//			System.out.println(i);
-//		}
-
 		boolean flg = true;
 
 		//軍艦が沈むまで同じ処理を繰り返す
 		while(flg) {
-			String s;
+
+			String userTyped;
 			InputStreamReader isr = new InputStreamReader(System.in);
 			BufferedReader br = new BufferedReader(isr);
 
 			try {
-				s = br.readLine();
-				System.out.println("you typed ... "+ s);
+				userTyped = br.readLine();
 
-				if(s.equals("exit")){
-					System.out.println("ok");
-					flg = false;
+				if(userTyped.length()==0) {
+					System.out.println("終了します");
+					break;
 				}
 
-				String userGuess = s;
+				System.out.println("you typed ... "+ userTyped);
+
+				String userGuess = userTyped;
 				String buttleResult = dot1.checkYourself(userGuess);
 				System.out.println(buttleResult);
 
 				if(buttleResult.equals("kill")){
-					System.out.println("you win" + " you typed " + dot1.getNumOfHits() + " times");
+					//System.out.println("you win" + " you typed " + dot1.getNumOfHits() + " times");
 					flg = false;
 				}
 
