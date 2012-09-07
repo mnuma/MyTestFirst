@@ -16,9 +16,16 @@ public class DotComTest {
 
 		List<String> list = new ArrayList<String>();
 		DotCom dotCom = new DotCom();
-		list = dotCom.getCellLocations();
-		assertEquals(3, list.size());
+		list = dotCom.getLocationCells();
 
 	}
 
+	@Test
+	public void checkYourselfTest() {
+
+		DotCom dotCom = new DotCom();
+		String userGuess = "1";
+		String result = dotCom.checkYourself(userGuess);
+		assertEquals("miss", result);
+	}
 }

@@ -5,21 +5,41 @@ import java.util.List;
 
 public class DotCom {
 
-	private List<String> cellLocations = new ArrayList<String>();
+	private ArrayList<String> locationCells = new ArrayList<String>();
+	private String name;
 
-	public DotCom() {
-		// TODO インスタンス時にランダムな3つの数を返す
-		this.cellLocations.add("a");
-		this.cellLocations.add("a");
-		this.cellLocations.add("a");
+	public void setLocationCells (ArrayList<String> newLocation) {
+		locationCells = newLocation;
 	}
 
-	public List<String> getCellLocations() {
+	public ArrayList<String> getLocationCells() {
 		// TODO
-		return cellLocations;
-
+		return locationCells;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	public String getName() {
+		return name;
+	}
 
+	public String checkYourself (String userGuess) {
+		// TODO 値のチェック
+		String result = "miss";
+		int index = locationCells.indexOf(userGuess);
+
+		if(index >= 0) {
+			//リストから取り除く
+			locationCells.remove(index);
+				if(locationCells.isEmpty()) {
+					result = "kill";
+					System.out.println("Ouch! You sunk" + name );
+				} else {
+					result = "hit";
+				}
+		}
+		return result;
+	}
 }

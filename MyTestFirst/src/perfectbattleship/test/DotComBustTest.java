@@ -1,7 +1,6 @@
 package perfectbattleship.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -12,14 +11,35 @@ import perfectbattleship.DotComBust;
 
 public class DotComBustTest {
 
-	@Test
-	public void setUpTest() {
+	DotComBust dotComBust = new DotComBust();
 
-		//インスタンス化
+	@Test
+	public void setUpGameTest() {
 		DotComBust dotComBust = new DotComBust();
-		//インスタンス時にランダムな3つの数字が入る
-		ArrayList<String> dotComLocation= dotComBust.getCellLocation();
-		assertEquals(3, dotComLocation.size());
+		dotComBust.setUpGame();
+		ArrayList<DotCom> list = dotComBust.getDotComList();
+
+		for(DotCom dot : list) {
+			System.out.println(dot.getName());
+		}
+	}
+
+	@Test
+	public void startPlayingTest() {
+		dotComBust.setUpGame();
+
+	}
+
+	@Test
+	public void checkUserGuessTest() {
+		String userGuess = "1";
+		dotComBust.checkUserGuess(userGuess);
+
+	}
+
+	@Test
+	public void finishGameTest() {
+
 	}
 
 }

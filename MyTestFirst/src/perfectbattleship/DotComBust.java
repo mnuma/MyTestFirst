@@ -6,77 +6,116 @@ import perfectbattleship.util.GameHelper;
 
 /**
  * ゲームのすべての処理を進めるクラス。
- * ※仮コード
+ * ※リアルコード
  */
 public class DotComBust {
 
 	//helper
-	private GameHelper gameHelper;
+	private GameHelper helper = new GameHelper();
 
 	//DotComオブジェクトを格納するArrayListのインスタンス
-	private ArrayList<String> list = new ArrayList<String>();
+	private ArrayList<DotCom> dotComsList = new ArrayList<DotCom>();
 
 	//ユーザの推測の数を記録する
-	private int numOfGuess;
+	private int numOfGuess = 0;
 
-	public static void main(String[] args) {
+	public ArrayList<DotCom> getDotComList() {
+		return this.dotComsList;
+	}
 
+	public int getNumOfGuess() {
+		return numOfGuess;
+	}
+
+	public void setNumOfGuess(int numOfGuess) {
+		this.numOfGuess = numOfGuess;
 	}
 
 	//名前と配置を決定
-	void setUpGame() {
+	public void setUpGame() {
 
-		//DitComオブジェクトを作成し名前を付ける
+		//DotComオブジェクトを作成する 名前を付ける * 3
+		DotCom one = new DotCom();
+		one.setName("Pets.com");
 
-		//名前の指定
+		DotCom two = new DotCom();
+		two.setName("eToy.com");
 
-		//ArrayListへの追加 DotCOmオブジェくトをdotComListに追加する
+		DotCom three = new DotCom();
+		three.setName("Go2.com");
 
-			//繰り返し処理
+		//ArrayListへの追加 DotoOmオブジェくトをdotComListに追加する
+		this.dotComsList.add(one);
+		this.dotComsList.add(two);
+		this.dotComsList.add(three);
 
-			//メソッドの呼び出し
+		//繰り返し処理
+		for(DotCom dotComToSet : dotComsList) {
 
-			//配置の指定
+			//セルの位置を設定
+			ArrayList<String> newLocation = helper.placeDotCom(3);
+			dotComToSet.setLocationCells(newLocation);
+		}
 
 	}
 
 	//ユーザに推測したセル番号の入力を求める
-	void startPlaying() {
+	public void startPlaying() {
 
 		//繰り返し処理 DotComオブジェクトが1つでも存在していたら、同じ処理を繰り返す
+		while(!dotComsList.isEmpty()) {
 
 			//データ取得 ユーザ入力データ取得
-
-			//確認 checkUserGuess() ユーザの推測が正しいかの確認
+			String userGuess = helper.getUserInput("Enter a guess");
+			checkUserGuess(userGuess);
+		}
 	}
 
 	//その時点で残っているDotComオブジェクトについてcheckYourselfメソッドを呼び出す
-	void checkUserGuess() {
+	public void checkUserGuess(String userGuess) {
+
+		numOfGuess++;
+		String result = "miss";
 
 		//ユーザの推測が当たってるかどうかの確認
+		for (DotCom dotComToTest : dotComsList ) {
+			result = dotComToTest.checkYourself(userGuess);
 
-		//インクリメント
-
-		//値の設定
-
-		//繰り返し処理
-
-			//確認
-			//値の設定
-			//if文
-			//削除
-
-		//表示
+			if (result.equals("hit")) {
+				break;
+			}
+			if (result.equals("kill")) {
+				dotComsList.remove(dotComToTest);
+				break;
+			}
+		}
+		System.out.println(result);
 	}
 
 	//すべてのDotComオブジェクトを削除するために何回セル番号を入力したか
-	void finishGame() {
+	public void finishGame() {
 		//表示 ゲーム終了メッセージ
+		System.out.println("All Doct are dead");
 			//if文 ユーザの推測数
-				//表示 評価高い
-			//else文
-				//表示 評価低い
+		if(numOfGuess <= 18) {
+			//評価高い
+			System.out.println("Took you long enough" + numOfGuess + "guess");
+		}else{
+			//評価低い
+			System.out.println("Took you long enough" + numOfGuess + "guess");
+		}
 
+	}
+
+	/**
+	 *
+	 * @param args
+	 * mainメソッド
+	 */
+	public static void main(String[] args) {
+		DotComBust game = new DotComBust();
+		game.setUpGame();
+		game.startPlaying();
 	}
 
 }

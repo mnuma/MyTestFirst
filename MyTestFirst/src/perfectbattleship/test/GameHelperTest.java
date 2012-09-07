@@ -11,7 +11,6 @@ public class GameHelperTest {
 	@Test
 	public void setUpTest() {
 		GameHelper gameHelper = new GameHelper();
-		gameHelper.inputType();
 	}
 
 }
